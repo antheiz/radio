@@ -1,11 +1,11 @@
 ---
-import LoadMore from '../components/LoadMore.svelte';
-import Layout from '../layouts/Layout.astro';
-import radioListData from '../data/radioList.json';
+import LoadMore from "../components/LoadMore.svelte";
+import Layout from "../layouts/Layout.astro";
+import radioListData from "../data/radioList.json";
 
 const radioList = radioListData;
 ---
 
-<Layout title="Welcome radio.FM" description="This is home page of radio.FM">
-    <LoadMore client:load {radioList} initialCount={6} loadCount={3} />
+<Layout title="Antheiz Radio" description="This is home Antheiz Radio">
+  <LoadMore client:load {radioList} initialCount={6} loadCount={3} />
 </Layout>
