@@ -9,7 +9,7 @@ on:
 
 # Set izin untuk job ini
 permissions:
-  contents: read
+  contents: write  # Ubah dari 'read' menjadi 'write' untuk memungkinkan push ke repository
   pages: write
   id-token: write
 
@@ -73,11 +73,12 @@ jobs:
         id: deployment
         uses: actions/deploy-pages@v4
 
-      - name: Checkout repository (for pushing to pages branch)
+      - name: Checkout repository (for pushing to gh-pages branch)
         uses: actions/checkout@v4
         with:
           ref: gh-pages
           fetch-depth: 0
+          token: ${{ secrets.GITHUB_TOKEN }}  # Gunakan GITHUB_TOKEN untuk otentikasi
           
       - name: Download build artifact
         uses: actions/download-artifact@v4
@@ -92,14 +93,18 @@ jobs:
           
       - name: Configure Git
         run: |
-          git config user.name "GitHub Actions Bot"
-          git config user.email "<>"
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
           
       - name: Update gh-pages branch
         run: |
           git checkout gh-pages
-          rm -rf $(ls -A | grep -v ".git" | grep -v "extracted")
+          # Hapus file existing kecuali .git dan extracted
+          find . -mindepth 1 -maxdepth 1 -not -name ".git" -not -name "extracted" -exec rm -rf {} \;
+          # Salin semua file dari folder extracted
           cp -r ./extracted/* ./
+          # Periksa apakah ada folder extracted di root, jika ada, hapus
+          if [ -d "./extracted" ]; then rm -rf ./extracted; fi
           git add -A
           git commit -m "Update GitHub Pages site from master branch" || echo "No changes to commit"
-          git push origin gh-pages
+          git push
