@@ -8,6 +8,6 @@ import svelte from "@astrojs/svelte";
 // https://astro.build/config
 export default defineConfig({
   base: '/radio',
-  trailingSlash: 'ignore',
+  trailingSlash: 'always',
   integrations: [tailwind(), svelte()],
 });
