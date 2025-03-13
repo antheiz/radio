@@ -5,14 +5,22 @@ interface Props {
   image?: string;
 }
 
-const {
-  title,
-  description,
-  image = "/preview.png",
-} = Astro.props;
+const { title, description, image = "preview.png" } = Astro.props;
+
+// Gunakan base URL dari konfigurasi untuk URL yang benar
+const baseUrl = import.meta.env.BASE_URL;
+
+// Hilangkan trailing slash ganda jika ada
+const normalizedBaseUrl = baseUrl.endsWith("/") ? baseUrl : baseUrl + "/";
+
+// Hilangkan leading slash dari image jika ada untuk mencegah double slash
+const normalizedImage = image.startsWith("/") ? image.substring(1) : image;
 
 // Construct the full URL for the og:image
-const ogImageURL = new URL(image, Astro.url).toString();
+const ogImageURL = new URL(
+  normalizedBaseUrl + normalizedImage,
+  Astro.site
+).toString();
 ---
 
 <!-- Character Encoding -->
@@ -20,12 +28,15 @@ const ogImageURL = new URL(image, Astro.url).toString();
 <!-- Viewport for Responsive Design -->
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <!-- Favicon -->
-<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+<link
+  rel="icon"
+  type="image/svg+xml"
+  href={normalizedBaseUrl + "favicon.svg"}
+/>
 <!-- Primary Meta Tags -->
 <title>{title}</title>
 <meta name="title" content={title} />
 <meta name="description" content={description} />
-
 <!-- Open Graph / Facebook -->
 <meta property="og:type" content="website" />
 <meta property="og:url" content={Astro.url} />
@@ -38,6 +49,5 @@ const ogImageURL = new URL(image, Astro.url).toString();
 <meta property="twitter:title" content={title} />
 <meta property="twitter:description" content={description} />
 <meta property="twitter:image" content={ogImageURL} />
-
 <!-- Generator -->
 <meta name="generator" content={Astro.generator} />

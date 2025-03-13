@@ -10,7 +10,7 @@ import Layout from "../layouts/Layout.astro";
     <!-- Content -->
     <div class="space-y-5 md:space-y-8">
       <a
-        href="/"
+        href={import.meta.env.BASE_URL}
         class="inline-flex items-center gap-x-1.5 text-sm text-gray-600 decoration-2 hover:underline focus:outline-none focus:underline"
       >
         <svg
@@ -27,21 +27,18 @@ import Layout from "../layouts/Layout.astro";
         >
         Home
       </a>
-
       <p class="text-gray-500">
         Antheiz Radio is a personal project born out of a simple need: to have a
         single, easy-to-use platform for my favorite radio stations. It's not a
         commercial product, but rather a solution I created for myself to enjoy
         the radio sources I love, all in one place.
       </p>
-
       <p class="text-gray-500">
         The main goal of this project was to create a minimalist, user-friendly
         interface that allows me to listen to my preferred radio stations
         effortlessly. By sharing it as an open-source project, I hope it might
         also be useful for others who have similar needs.
       </p>
-
       <p class="text-gray-500">
         Antheiz Radio is created by <a
           href="https://github.com/antheiz"
@@ -54,7 +51,6 @@ import Layout from "../layouts/Layout.astro";
           >https://github.com/antheiz/radio</a
         >.
       </p>
-
       <p class="text-gray-500">
         While this project was created for personal use, I welcome anyone who
         finds it helpful to use and contribute to it. Enjoy your listening
