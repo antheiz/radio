@@ -78,7 +78,7 @@ jobs:
         with:
           ref: gh-pages
           fetch-depth: 0
-          token: ${{ secrets.GH_TOKEN }}  # Gunakan GITHUB_TOKEN untuk otentikasi
+          token: ${{ secrets.GITHUB_TOKEN }}  # Gunakan GITHUB_TOKEN untuk otentikasi
           
       - name: Download build artifact
         uses: actions/download-artifact@v4
