@@ -7,7 +7,6 @@ import svelte from "@astrojs/svelte";
 
 // https://astro.build/config
 export default defineConfig({
-  site: 'https://antheiz.github.io/',
-  base: '/radio/',
+  site: 'https://radio.antheiz.space/',
   integrations: [tailwind(), svelte()],
 });
